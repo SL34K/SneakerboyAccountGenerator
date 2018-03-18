@@ -61,7 +61,14 @@ def account(form,apikey,sitekey,catchalldomain):
         'gender': 'male',
         'localstore': choice(localstore),
         'g-recaptcha-response':capsolution,}
-    signup = requests.post(form,data=data)
+    sesh = requests.session()
+    sesh.headers = {
+        'Origin':'https://sneakerboy.com',
+        'Referer':'https://sneakerboy.com',
+        'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36'
+    }
+    sesh.headers.update()
+    signup = sesh.post(form,data=data)
     if signup.status_code == 200:
         return email,username
     else:
